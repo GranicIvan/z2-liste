@@ -16,7 +16,7 @@ typedef struct knjiga
 }knjiga;
 
 void stampaj_knjigu(knjiga* k){
-    printf(" %3d  %s   %s  %2d  %s \n", k->sifra, k->autor, k->naziv, k->kolicina, k->zanr);
+    printf(" %3d  %18s   %25s  %2d  %s \n", k->sifra, k->autor, k->naziv, k->kolicina, k->zanr);
 }
 
 void ubaci_element(knjiga **koren, knjiga *novi){
@@ -28,9 +28,9 @@ void ubaci_element(knjiga **koren, knjiga *novi){
           knjiga* temp = *koren;
         while ( temp->sledeci != NULL && temp->sledeci->sifra < novi->sifra  )
         {
-           printf("$$$$ sadasni je:  ");
-           stampaj_knjigu(temp);
-           printf("sledeca sifra je: %d , dok je nasa sifra %d \n",temp->sledeci->sifra, novi->sifra );
+        //    printf("$$$$ sadasni je:  ");
+        //    stampaj_knjigu(temp);
+           //printf("sledeca sifra je: %d , dok je nasa sifra %d \n",temp->sledeci->sifra, novi->sifra );
             temp = temp->sledeci;
             
         }
@@ -38,7 +38,7 @@ void ubaci_element(knjiga **koren, knjiga *novi){
         novi->sledeci = temp->sledeci;
         temp->sledeci = novi;
 
-        
+     
     }  
 }
 
@@ -68,14 +68,24 @@ knjiga* ucitaj(char ime_fajla[30]){
         fgets(temp->zanr,30,f);
         // printf("i:%d  zanr je: %s   \n", i, temp->zanr);
 
-        
-        int len = strlen( temp->autor );
 
-        len = strlen(temp->autor);
+        int len = strlen( temp->autor );
         if (len > 0 && temp->autor[len-1] == '\n') {
             temp->autor[len-1] = '\0';
         }
+
+        len = strlen(temp->naziv);
+        if (len > 0 && temp->naziv[len-1] == '\n') {
+            temp->naziv[len-1] = '\0';
+        }
+
+
+        len = strlen(temp->zanr);
+        if (len > 0 && temp->zanr[len-1] == '\n') {
+            temp->zanr[len-1] = '\0';
+        }
         
+
 
         ubaci_element(&koren, temp);
         
@@ -87,12 +97,18 @@ knjiga* ucitaj(char ime_fajla[30]){
 
 
 void stampaj(knjiga* koren) {
-    while( koren->sledeci != NULL ){
+    while( koren != NULL ){
         stampaj_knjigu(koren);
         koren = koren->sledeci;
     }
 }
 
+
+
+
+int prodaj(){
+    
+}
 
 
 
