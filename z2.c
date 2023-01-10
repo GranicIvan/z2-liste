@@ -105,7 +105,7 @@ void stampaj(knjiga* koren) {
 
 
 
-
+ 
 int prodaj(int index, knjiga* koren){
 
     knjiga* temp = koren;
@@ -115,22 +115,23 @@ int prodaj(int index, knjiga* koren){
         temp = temp->sledeci;
     }
 
-    if(temp == NULL) {
-        printf("DOSLO JE DO GRESKE, NISMO NASLI KNJIGU SA INDEKSOM %d \n\n" , index);
+    if(temp->sledeci == NULL) {
+        printf("DOSLO JE DO GRESKE, Dosli smo do kraja liste NISMO NASLI KNJIGU SA INDEKSOM %d \n\n" , index);
         return 0; 
-    }
-
-    // sada temp->sifra == index
-    if(temp->sledeci->kolicina > 1){
-        temp->sledeci->kolicina = temp->sledeci->kolicina -1;
-        return temp->sledeci->kolicina; // Kao povratynu vrednost vracamo broj knjiga koje su preostale
+    }else if(temp->sledeci->kolicina > 1){ // sada temp->sifra == index
+        temp->sledeci->kolicina = temp->sledeci->kolicina - 1;
+        printf("uklonili smo jednu knjigu \n");
+        return temp->sledeci->kolicina; // Kao povratnu vrednost vracamo broj knjiga koje su preostale
 
     }else if(temp->kolicina < 1 ){
-         printf("DOSLO JE DO GRESKE, NEMAMO NI 1 KNJIGU SA INDEKSOM %d \n\n" , index);
+        // Ovo se moze desiti samo usled greske jer izbacujemo knjigu iz liste ako imamo 0 primeraka
+         printf("DOSLO JE DO GRESKE, NEMAMO NI 1 KNJIGU SA INDEKSOM %d \n\n" , index); 
+         temp->sledeci = temp->sledeci->sledeci;
          return 0;
 
     }else{ // temp.sledeci.kolicina == 1
         temp->sledeci = temp->sledeci->sledeci;
+        printf("Izbacili smo knjigu sa indexom: %d zato sto nemmao vise primeraka \n", index);
         return -1; // Vracamo -1 ako nemamo vise primeraka te knjige
 
     }
