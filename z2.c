@@ -133,11 +133,31 @@ int prodaj(int index, knjiga* koren){
         temp->sledeci = temp->sledeci->sledeci;
         printf("Izbacili smo knjigu sa indexom: %d zato sto nemmao vise primeraka \n", index);
         return -1; // Vracamo -1 ako nemamo vise primeraka te knjige
-
     }
-
 }
 
+
+//koja za učitani žanr preporučuje korisniku knjige u tom žanru.
+knjiga* preporuci(knjiga* koren, char* zanr){
+
+    knjiga* novi_koren = malloc(sizeof(knjiga) );
+    knjiga* temp = koren;
+    int x =0;
+    while (temp != NULL)
+    {
+        printf("x= %d \n",x);
+        x++;
+        if(! strcmp(temp->zanr, zanr)){
+            printf("nasli smo da su isti\n");
+            ubaci_element(&novi_koren, temp);
+            printf(" ubacili smo elem dok je x=%d \n", x);
+            
+        }
+        temp = temp->sledeci;
+    }
+    printf("dosli smo do return a \n");
+    return novi_koren;
+}
 
 
 int main(int argc, char const *argv[])
@@ -157,20 +177,27 @@ int main(int argc, char const *argv[])
     printf(" \n\n $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  \n\n");
     
 
-    int ostalo_jos = -5;
+    // int ostalo_jos;
 
-    ostalo_jos = prodaj(157, koren);
-    ostalo_jos = prodaj(157, koren);
-    ostalo_jos = prodaj(157, koren);
-    ostalo_jos = prodaj(157, koren);
-    ostalo_jos = prodaj(157, koren);
-    ostalo_jos = prodaj(157, koren);
+    // ostalo_jos = prodaj(157, koren);
+    // ostalo_jos = prodaj(157, koren);
+    // ostalo_jos = prodaj(157, koren);
+    // ostalo_jos = prodaj(157, koren);
+    // ostalo_jos = prodaj(157, koren);
+    // ostalo_jos = prodaj(157, koren);
 
-    printf("Ostalo je jos %d knjiga sa ondexom 157 \n", ostalo_jos);
+    // printf("Ostalo je jos %d knjiga sa ondexom 157 \n", ostalo_jos);
 
-    printf(" \n\n $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  \n\n");
 
-    stampaj(koren);
+
+    knjiga* preporucene = preporuci(koren, "fantastika");
+
+    printf("sada stampamo predlozene \n");
+
+    stampaj(preporucene);
+
+
+   
 
 
 
