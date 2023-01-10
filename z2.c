@@ -50,7 +50,7 @@ knjiga* ucitaj(char ime_fajla[30]){
 
     int n;
     fscanf(f, "%d", &n);
-    printf("n je: %d\n",n);
+    //printf("n je: %d\n",n);
 
     for (int i = 0; i < n; i++)
     {
@@ -106,8 +106,35 @@ void stampaj(knjiga* koren) {
 
 
 
-int prodaj(){
-    
+int prodaj(int index, knjiga* koren){
+
+    knjiga* temp = koren;
+
+
+    while(temp->sledeci != NULL && temp->sledeci->sifra != index){
+        temp = temp->sledeci;
+    }
+
+    if(temp == NULL) {
+        printf("DOSLO JE DO GRESKE, NISMO NASLI KNJIGU SA INDEKSOM %d \n\n" , index);
+        return 0; 
+    }
+
+    // sada temp->sifra == index
+    if(temp->sledeci->kolicina > 1){
+        temp->sledeci->kolicina = temp->sledeci->kolicina -1;
+        return temp->sledeci->kolicina; // Kao povratynu vrednost vracamo broj knjiga koje su preostale
+
+    }else if(temp->kolicina < 1 ){
+         printf("DOSLO JE DO GRESKE, NEMAMO NI 1 KNJIGU SA INDEKSOM %d \n\n" , index);
+         return 0;
+
+    }else{ // temp.sledeci.kolicina == 1
+        temp->sledeci = temp->sledeci->sledeci;
+        return -1; // Vracamo -1 ako nemamo vise primeraka te knjige
+
+    }
+
 }
 
 
@@ -120,11 +147,30 @@ int main(int argc, char const *argv[])
     knjiga* koren = ucitaj("knjizara.txt");
 
 
-    printf(" \n\n $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  \n\n");
+    //
 
 
 
     stampaj(koren);
+
+    printf(" \n\n $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  \n\n");
+    
+
+    int ostalo_jos = -5;
+
+    ostalo_jos = prodaj(157, koren);
+    ostalo_jos = prodaj(157, koren);
+    ostalo_jos = prodaj(157, koren);
+    ostalo_jos = prodaj(157, koren);
+    ostalo_jos = prodaj(157, koren);
+    ostalo_jos = prodaj(157, koren);
+
+    printf("Ostalo je jos %d knjiga sa ondexom 157 \n", ostalo_jos);
+
+    printf(" \n\n $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  \n\n");
+
+    stampaj(koren);
+
 
 
 
