@@ -19,6 +19,7 @@ void stampaj_knjigu(knjiga* k){
     printf(" %3d  %18s   %25s  %2d  %s \n", k->sifra, k->autor, k->naziv, k->kolicina, k->zanr);
 }
 
+// nabavka, Ova funk. treba da se zove nabavka
 void ubaci_element(knjiga **koren, knjiga *novi){
     if(*koren == NULL || (*koren)->sifra >= novi->sifra){
         novi->sledeci = *koren;
@@ -147,7 +148,7 @@ knjiga* preporuci(knjiga* koren, char* zanr){
     {
         printf("x= %d \n",x);
         x++;
-        if(! strcmp(temp->zanr, zanr)){
+        if( !strcmp(temp->zanr, zanr)){
             printf("nasli smo da su isti\n");
             ubaci_element(&novi_koren, temp);
             printf(" ubacili smo elem dok je x=%d \n", x);
@@ -159,6 +160,14 @@ knjiga* preporuci(knjiga* koren, char* zanr){
     return novi_koren;
 }
 
+
+
+void oslobidi_memoriju(knjiga* koren){
+    if(koren->sledeci != NULL){
+        oslobidi_memoriju(koren->sledeci);
+    }
+    free(koren);
+}
 
 int main(int argc, char const *argv[])
 {
