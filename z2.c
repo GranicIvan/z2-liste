@@ -143,16 +143,20 @@ knjiga* preporuci(knjiga* koren, char* zanr){
 
     knjiga* novi_koren = NULL;
     knjiga* temp = koren;
-    int x =0;
+    // int x =0;
     while (temp != NULL)
     {
-        printf("x= %d \n",x);
-        x++;
+        // printf("x= %d \n",x);
+        // x++;
         if( !strcmp(temp->zanr, zanr)){
-            printf("nasli smo da su isti\n");
+            // printf("nasli smo da su isti\n");
             knjiga temp2 = *temp;
+            printf("stampamo knjigu : ");
+            stampaj_knjigu(&temp2);
             ubaci_element(&novi_koren, &temp2);
-            printf(" ubacili smo elem dok je x=%d \n", x);
+            printf("stampamo novi kroen: ");
+            stampaj_knjigu(novi_koren);
+            // printf(" ubacili smo elem dok je x=%d \n", x);
             
         }
         temp = temp->sledeci;
