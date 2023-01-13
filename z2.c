@@ -142,29 +142,35 @@ int prodaj(int index, knjiga* koren){
 knjiga* preporuci(knjiga* koren, char* zanr){
 
     knjiga* novi_koren = NULL;
+;
     knjiga* temp = koren;
-    // int x =0;
     while (temp != NULL)
     {
-        // printf("x= %d \n",x);
-        // x++;
+
         if( !strcmp(temp->zanr, zanr)){
-            // printf("nasli smo da su isti\n");
             knjiga temp2 = *temp;
-            printf("stampamo knjigu : ");
-            stampaj_knjigu(&temp2);
             ubaci_element(&novi_koren, &temp2);
-            printf("stampamo novi kroen: ");
-            stampaj_knjigu(novi_koren);
-            // printf(" ubacili smo elem dok je x=%d \n", x);
             
         }
         temp = temp->sledeci;
     }
-    //printf("dosli smo do return a \n");
     return novi_koren;
 }
 
+
+void preporuci_void(knjiga* koren, char* zanr){
+
+    knjiga* temp = koren;
+    while (temp != NULL)
+    {
+
+        if( !strcmp(temp->zanr, zanr)){
+            stampaj_knjigu(temp);
+            
+        }
+        temp = temp->sledeci;
+    }
+}
 
 
 void oslobidi_memoriju(knjiga* koren){
@@ -197,11 +203,15 @@ int main(int argc, char const *argv[])
 
 
 
-    knjiga* preporucene = preporuci(koren, "fantastika");
+    // knjiga* preporucene =  preporuci(koren, "fantastika");
 
     printf("sada stampamo predlozene \n");
 
-    stampaj(preporucene);
+    // stampaj_knjigu(preporucene);
+
+    // stampaj(preporucene);
+
+    preporuci_void(koren, "fantastika");
 
 
    
