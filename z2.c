@@ -16,7 +16,7 @@ typedef struct knjiga
 }knjiga;
 
 void stampaj_knjigu(knjiga* k){
-    printf(" %3d  %18s   %25s  %2d  %s \n", k->sifra, k->autor, k->naziv, k->kolicina, k->zanr);
+    printf("sif: %3d  aut:%18s   naz:%25s  kol:%2d  zanr:%s \n", k->sifra, k->autor, k->naziv, k->kolicina, k->zanr);
 }
 
 // nabavka, Ova funk. treba da se zove nabavka
@@ -141,7 +141,7 @@ int prodaj(int index, knjiga* koren){
 //koja za učitani žanr preporučuje korisniku knjige u tom žanru.
 knjiga* preporuci(knjiga* koren, char* zanr){
 
-    knjiga* novi_koren = malloc(sizeof(knjiga) );
+    knjiga* novi_koren = NULL;
     knjiga* temp = koren;
     int x =0;
     while (temp != NULL)
@@ -150,13 +150,14 @@ knjiga* preporuci(knjiga* koren, char* zanr){
         x++;
         if( !strcmp(temp->zanr, zanr)){
             printf("nasli smo da su isti\n");
-            ubaci_element(&novi_koren, temp);
+            knjiga temp2 = *temp;
+            ubaci_element(&novi_koren, &temp2);
             printf(" ubacili smo elem dok je x=%d \n", x);
             
         }
         temp = temp->sledeci;
     }
-    printf("dosli smo do return a \n");
+    //printf("dosli smo do return a \n");
     return novi_koren;
 }
 
@@ -187,14 +188,7 @@ int main(int argc, char const *argv[])
     
 
     // int ostalo_jos;
-
     // ostalo_jos = prodaj(157, koren);
-    // ostalo_jos = prodaj(157, koren);
-    // ostalo_jos = prodaj(157, koren);
-    // ostalo_jos = prodaj(157, koren);
-    // ostalo_jos = prodaj(157, koren);
-    // ostalo_jos = prodaj(157, koren);
-
     // printf("Ostalo je jos %d knjiga sa ondexom 157 \n", ostalo_jos);
 
 
